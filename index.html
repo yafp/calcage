@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Age Calculator">
+    <meta name="author" content="yafp">
+
+    <title>CalcAge</title>
+
+    <link rel="icon" type="image/png" href="favicon.ico">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="css/jquery-ui.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/coreFunctions.js"></script>
+
+    <script>
+      $( document ).ready(function() {
+         $("div#about").hide();
+         $("div#restrictions").hide();
+
+         checkLocalStorageSupport();
+      });
+    </script>
+
+    <script>
+      $(function() {
+            $( "#curDay" ).datepicker();
+      });
+      </script>
+
+
+      <script>
+         $(function() {
+            $( "#bday" ).datepicker();
+            $( "#bday" ).datepicker('option', 'dateFormat' , 'dd.mm.yy');
+         });
+      </script>
+</head>
+
+<body>
+   <div id="wrapper">
+
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+         <ul class="sidebar-nav">
+            <li class="sidebar-brand"><a href="index.html">CalcAge</a></li>
+            <li><a href="#" onclick="toggleAboutDiv();">Allgemeines</a></li>
+            <li><a href="#" onclick="toggleAddNewDiv();">Neu</a></li>
+            <li><a href="#" onclick="toggleRestrictionsDiv();">Einschr&auml;nkungen</a></li>
+         </ul>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-lg-12">
+
+                  <a href="#menu-toggle" class="btn btn-default" id="menu-toggle" title="Steuert die Navigations-Seitenleiste"><span class="glyphicon glyphicon-sound-stereo" aria-hidden="true"></span></a>
+                        <h1><span class="glyphicon glyphicon-tree-deciduous" aria-hidden="true"></span> CalcAge</h1>
+                        <h2>Altersermittlung in einfach</h2>
+
+
+                     <div id="warning" class="alert alert-danger" role="alert" style="display:none">Ihr Browser hat keinen LocalStorage-Support - weshalb Calcage nicht funktionieren wird.</div>
+
+
+                     <!--
+                     <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                     -->
+
+<!--
+                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle" title="Steuert die Navigations-Seitenleiste"><span class="glyphicon glyphicon-sound-stereo" aria-hidden="true"></span></a>
+-->
+
+                     <!--
+                        ABOUT
+                     -->
+                     <div id="about">
+                        <h3>Allgemeines</h3>
+                        <p>Der Name <b>Calcage</b> setzt sich zusammen aus <span class="badge">calc</span> und <span class="badge">age</span> und entspricht damit auch der Kernfunktion des Projektes - eine einfache Art anhand eines Geburtsdatums das Alter (in Tagen und Wochen) einer einzelnen Person zu errechnen.</p>
+                        <p>Technisch gesehen definiert der Anwender zu Beginn die Grunddaten (Name und Geburtsdatum) einer Person. Diese werden im lokalen Speicherbereich des verwendeten Browsers abgelegt. Bei zuk&uuml;nftigen Besuchen der Seite werden diese Daten automatisch geladen und man sieht umgehend die aktuellen Daten.</p>
+                     </div>
+
+
+
+                     <!--
+                        ADD NEW
+                     -->
+                     <div id="addNew">
+                        <h3>Neu</h3>
+                        <!-- Name:<br> -->
+                        <input type="text" name="name" id="name" placeholder="Name">
+                        <br>
+                        <!-- Birthday:<br> -->
+                        <input type="date" name="bday" id="bday" placeholder="Geburtsdatum">
+                        <br>
+                        <button type="button" onclick="addPerson();">Hinterlegen</button>
+                     </div>
+
+
+                     <!--
+                        TODAY
+                     -->
+
+                     <div id="calculation">
+                        <!--
+                        <h3>Berechnung <small><a href="" onclick="calculateCurrentAge();"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></a></small></h3>
+                     -->
+                        <div class="container">
+                           <div class="row">
+                              <div class="col-xs-2">Name</div>
+                              <div class="col-xs-10">
+                                 <input type="text" name="curName" id="curName" placeholder="Name" readonly>
+                                 <a href="" onclick="removePersonFromLocalStorage();" title="Löscht die angelegte Person"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                              </div>
+                           </div>
+                           <!-- Spacer -->
+                           <div class="row">
+                              <div class="col-xs-2">&nbsp;</div>
+                           </div>
+                           <div class="row">
+                              <div class="col-xs-2">Geburt</div>
+                              <div class="col-xs-10"><input type="date" name="curBday" id="curBday" placeholder="Birthday"></div>
+                           </div>
+                           <div class="row">
+                              <div class="col-xs-2">Heute</div>
+                              <div class="col-xs-10"><input type="text" name="curDate" id="curDate" placeholder="Today" readonly></div>
+                           </div>
+                           <!-- Spacer -->
+                           <div class="row">
+                              <div class="col-xs-2">&nbsp;</div>
+                           </div>
+                           <div class="row">
+                              <div class="col-xs-2">Tage</div>
+                              <div class="col-xs-10"><input type="text" name="curAge" id="curAge" placeholder="Age in Days" readonly></div>
+                           </div>
+                           <div class="row">
+                              <div class="col-xs-2">Wochen</div>
+                              <div class="col-xs-10"><input type="text" name="curAgeInWeeks" id="curAgeInWeeks" placeholder="Age in Weeks" readonly></div>
+                           </div>
+                           <div class="row">
+                              <div class="col-xs-2">Monate</div>
+                              <div class="col-xs-10"><input type="text" name="curAgeInMonth" id="curAgeInMonth" placeholder="Age in Month" readonly></div>
+                           </div>
+                           <div class="row">
+                              <div class="col-xs-2">Jahre</div>
+                              <div class="col-xs-10"><input type="text" name="curAgeInYear" id="curAgeInYear" placeholder="Age in Year" readonly></div>
+                           </div>
+                           <div class="row">
+                              <div class="col-xs-2">&nbsp;</div>
+                              <div class="col-xs-10"><button type="button" class="btn btn-default" onclick="calculateCurrentAge();"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Aktualisieren</button></div>
+                           </div>
+                        </div>
+                     </div>
+
+
+
+                     <!--
+                        RESTRICTIONS
+                     -->
+                     <div id="restrictions">
+                        <h3>Einschr&auml;nkungen</h3>
+                        <ul>
+                           <li>Calcage unterstützt aktuell nur 1 im Speicher hinterlegtes Geburtsdatum und Datum (LocalStorage)</li>
+                           <li>Jeder Monat hat 30 Tage (Monatsberechnung)</li>
+                           <li>Ein Jahr hat 365 Tage (Jahresberechnung)</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <!-- Google Ads -->
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- calcage -->
+            <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-2745566629991630"
+               data-ad-slot="5091162676"
+               data-ad-format="auto">
+            </ins>
+
+            <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+
+
+
+        </div>
+        <!-- /#page-content-wrapper -->
+
+      </div>
+      <!-- /#wrapper -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</body>
+</html>
