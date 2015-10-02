@@ -126,9 +126,25 @@
 
 
 
+
+h1 {
+
+   font-size: 20pt;
+   margin-top: 5px;
+   margin-bottom: 0px;
+}
+
 h2 {
    color: grey;
    font-size: 12pt;
    margin-top: 0px;
    margin-bottom: 15px;
+}
+
+#footer{
+   color: grey;
+}
+
+#footer a{
+   color: black;
 }

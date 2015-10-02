@@ -60,13 +60,28 @@ function addPerson()
    // get birthday
    var bday = $("#bday").val();
 
-   // with support for only 1 person
-   localStorage.setItem('name',name);
-   localStorage.setItem('bday',bday);
+   if((name != "") && (bday != ""))
+   {
+      // with support for only 1 person
+      localStorage.setItem('name',name);
+      localStorage.setItem('bday',bday);
 
-   toggleAddNewDiv();                     // hide add dialog
-   loadCurrentPersonFromLocalStorage();   // load data from local storage
-   $("div#calculation").show();
+      toggleAddNewDiv();                     // hide add dialog
+      loadCurrentPersonFromLocalStorage();   // load data from local storage
+      $("div#calculation").show();
+   }
+   else
+   {
+      if(name == "")
+      {
+         alert("Name ist leer");
+      }
+
+      if(bday == "")
+      {
+         alert("Geburtstag ist leer");
+      }
+   }
 }
 
 
@@ -80,12 +95,14 @@ function calculateCurrentAge()
 
    // get values from current person
    //
-   var name = $("#curName").val();
+   // get via UI
+   //var name = $("#curName").val();
    //var bday = $("#curBday").val();
+   //
+   // get form local Storage
+   var name = localStorage.getItem('name');
    var bday = localStorage.getItem('bday');
 
-
-   //alert(bday);
 
    // sofern wieso auch immer Trennstriche enthalten sind - diese durch Punkte ersetzen
    bday = bday.replace(/-/g, '.');
@@ -101,55 +118,43 @@ function calculateCurrentAge()
    {
       bday = bdayArray[2]+"."+bdayArray[1]+"."+bdayArray[0];
    }
-
-   birthday = bday;
-   //console.log(birthday);
-   //alert(birthday);
+   //birthday = bday;
 
 
-      var today = new Date();
-      var dd = today.getDate();
-      var mm = today.getMonth()+1; //January is 0!
+   // calculate todays date
+   var today = new Date();
+   var dd = today.getDate();
+   var mm = today.getMonth()+1; //January is 0!
 
-      var yyyy = today.getFullYear();
-      if(dd<10){
-          dd='0'+dd
-      }
-      if(mm<10){
-          mm='0'+mm
-      }
-      var today = dd+'.'+mm+'.'+yyyy;
-      //console.log(today);
+   var yyyy = today.getFullYear();
+   if(dd<10){
+       dd='0'+dd
+   }
+   if(mm<10){
+       mm='0'+mm
+   }
+   var today = dd+'.'+mm+'.'+yyyy;
 
-   //alert(today);
 
 
    // calculate days
    var date1 = today.split('.');
-   var date2 = birthday.split('.');
+   var date2 = bday.split('.');
    var start = new Date(date1[2], +date1[1]-1, date1[0]);
    var end = new Date(date2[2], +date2[1]-1, date2[0]);
 
-   //alert((start.getTime() - end.getTime()) / (1000*60*60*24));
-   var calculatedAge = (start.getTime() - end.getTime()) / (1000*60*60*24);
+   // Calculation of Age values (base = days)
+   //
+   var calcAgeInDays = (start.getTime() - end.getTime()) / (1000*60*60*24);
+   var calcAgeInWeeks = (calcAgeInDays/7).toFixed(1);
+   var calcAgeInMonth = (calcAgeInDays/30).toFixed(1);
+   var calcAgeInYear = (calcAgeInDays/365).toFixed(1);
 
-
-   // calculating weeks
-   var calcAgeInWeeks = (calculatedAge/7).toFixed(1);
-   //console.log(calcAgeInWeeks)
-
-
-   // calculate month
-   var calcAgeInMonth = (calculatedAge/30).toFixed(1);
-   //console.log(calcAgeInMonth);
-
-   // calculate month
-   var calcAgeInYear = (calculatedAge/365).toFixed(1);
-   //console.log(calcAgeInYear);
 
    // display calculated values
+   //
    $("#curDate").val(today);
-   $("#curAge").val(calculatedAge);
+   $("#curAgeInDays").val(calcAgeInDays);
    $("#curAgeInWeeks").val(calcAgeInWeeks);
    $("#curAgeInMonth").val(calcAgeInMonth);
    $("#curAgeInYear").val(calcAgeInYear);
@@ -163,15 +168,12 @@ function calculateCurrentAge()
  ##################################################### */
 function removePersonFromLocalStorage()
 {
-   console.log("Deleting our person");
-
+   console.log("Deleting keys from LocalStorage");
    localStorage.removeItem('name');
    localStorage.removeItem('bday');
 
+   console.log("Resetting UI");
    resetUI();
-
-   $("div#addNew").show();
-   $("div#calculation").hide();
 }
 
 
@@ -180,11 +182,17 @@ function removePersonFromLocalStorage()
  ##################################################### */
 function resetUI()
 {
+   // empty UI values
    $("#curName").val("");
    $("#curBday").val("");
    $("#curDate").val("");
    $("#curAge").val("");
    $("#curAgeInWeeks").val("");
+
+   // show & hide divs
+   $("div#addNew").show();
+   $("div#calculation").hide();
+   $("div#restrictions").hide();
 }
 
 
@@ -194,9 +202,11 @@ function toggleAddNewDiv()
    if ($('#addNew').css('display') == 'none')
    {
       $("div#addNew").show();
+      // hide others
       $("div#calculation").hide();
+      $("div#restrictions").hide();
    }
-else
+   else
    {
       $("div#addNew").hide();
    }
@@ -205,15 +215,18 @@ else
 
 
 
-function toggleAboutDiv()
+function toggleCalculationDiv()
 {
-   if ($('#about').css('display') == 'none')
+   if ($('#calculation').css('display') == 'none')
    {
-      $("div#about").show();
+      $("div#calculation").show();
+      // hide others
+      $("div#addNew").hide();
+      $("div#restrictions").hide();
    }
 else
    {
-      $("div#about").hide();
+      $("div#calculation").hide();
    }
 }
 
@@ -222,7 +235,10 @@ function toggleRestrictionsDiv()
 {
    if ($('#restrictions').css('display') == 'none')
    {
-    $("div#restrictions").show();
+      $("div#restrictions").show();
+      // hide others
+      $("div#addNew").hide();
+      $("div#calculation").hide();
    }
    else
    {
