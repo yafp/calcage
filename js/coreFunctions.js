@@ -5,6 +5,8 @@
  ##################################################### */
 function checkLocalStorageSupport()
 {
+   console.log("Checking for LocalStorage support")
+
    if(typeof(Storage) !== "undefined") // LocalStorage is supported
    {
       // check for existing person
@@ -13,7 +15,7 @@ function checkLocalStorageSupport()
    }
    else // Sorry! No Web Storage support
    {
-      alert("Local Storage is not supported");
+      alert("LocalStorage is not supported");
       $("div#warning").show();
    }
 }
@@ -32,11 +34,13 @@ function loadCurrentPersonFromLocalStorage()
 
    if(bday == null) // no person defined so far
    {
-      //console.log("There is no person defined so far");
+      console.log("No person data found in LocalStorage");
       $("div#calculation").hide();
    }
    else // there is a person defined
    {
+      console.log("Loading person data from LocalStorage");
+
       $("div#addNew").hide();
 
       // draw person details
@@ -103,13 +107,11 @@ function calculateCurrentAge()
    var name = localStorage.getItem('name');
    var bday = localStorage.getItem('bday');
 
-
-   // sofern wieso auch immer Trennstriche enthalten sind - diese durch Punkte ersetzen
+   // Replace - with .
    bday = bday.replace(/-/g, '.');
 
-   // Datumsstring aufsplitten an den Punkten
+   // Split Birthday-String & reconstruct it to avoid issues with client-side date format
    var bdayArray = bday.split(".");
-
    if(bdayArray[0].length == 2)
    {
       bday = bdayArray[0]+"."+bdayArray[1]+"."+bdayArray[2];
@@ -118,8 +120,6 @@ function calculateCurrentAge()
    {
       bday = bdayArray[2]+"."+bdayArray[1]+"."+bdayArray[0];
    }
-   //birthday = bday;
-
 
    // calculate todays date
    var today = new Date();
@@ -135,8 +135,6 @@ function calculateCurrentAge()
    }
    var today = dd+'.'+mm+'.'+yyyy;
 
-
-
    // calculate days
    var date1 = today.split('.');
    var date2 = bday.split('.');
@@ -145,16 +143,24 @@ function calculateCurrentAge()
 
    // Calculation of Age values (base = days)
    //
-   var calcAgeInDays = (start.getTime() - end.getTime()) / (1000*60*60*24);
+   var calcAgeInDays = (start.getTime() - end.getTime()) / (1000*60*60*24);      // Base-Value for further calculations
    var calcAgeInWeeks = (calcAgeInDays/7).toFixed(1);
    var calcAgeInMonth = (calcAgeInDays/30).toFixed(1);
    var calcAgeInYear = (calcAgeInDays/365).toFixed(1);
 
 
+   // Adding human readable stuff
+   calcAgeInDays = calcAgeInDays+" Tage";
+   calcAgeInWeeks = calcAgeInWeeks+" Wochen";
+   calcAgeInMonth = calcAgeInMonth+" Monate";
+   calcAgeInYear = calcAgeInYear+" Jahre";
+
    // display calculated values
    //
    $("#curDate").val(today);
+
    $("#curAgeInDays").val(calcAgeInDays);
+   //$("#curAgeInDays").append( " XX" );
    $("#curAgeInWeeks").val(calcAgeInWeeks);
    $("#curAgeInMonth").val(calcAgeInMonth);
    $("#curAgeInYear").val(calcAgeInYear);
@@ -172,7 +178,6 @@ function removePersonFromLocalStorage()
    localStorage.removeItem('name');
    localStorage.removeItem('bday');
 
-   console.log("Resetting UI");
    resetUI();
 }
 
@@ -182,6 +187,8 @@ function removePersonFromLocalStorage()
  ##################################################### */
 function resetUI()
 {
+   console.log("Resetting UI");
+
    // empty UI values
    $("#curName").val("");
    $("#curBday").val("");
@@ -196,7 +203,9 @@ function resetUI()
 }
 
 
-
+/* #####################################################
+   - Toggling Content-DIVs
+ ##################################################### */
 function toggleAddNewDiv()
 {
    if ($('#addNew').css('display') == 'none')

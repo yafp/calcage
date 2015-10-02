@@ -126,24 +126,25 @@
                         ADD NEW
                      -->
                      <div id="addNew">
-                        <!-- Name:<br> -->
-                        <input type="text" name="name" id="name" placeholder="Name" required autocomplete="off">
-                        <br>
-                        <!-- Birthday:<br> -->
-                        <input type="text" name="bday" id="bday" placeholder="Geburtsdatum" required autocomplete="off">
-                        <br>
-                        <button type="button" onclick="addPerson();" title="Speichert Name und Datum auf diesem Ger&auml;t"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Speichern</button>
+                        <div class="row">
+                           <div class="col-xs-3">Name</div>
+                           <div class="col-xs-9"><input type="text" name="name" id="name" placeholder="Name" required autocomplete="off"></div>
+                        </div>
+                        <div class="row">
+                           <div class="col-xs-3">Geburt</div>
+                           <div class="col-xs-9"><input type="text" name="bday" id="bday" placeholder="Geburtsdatum" required autocomplete="off"></div>
+                        </div>
+                        <div class="row">
+                           <div class="col-xs-3">&nbsp;</div>
+                           <div class="col-xs-9"><button type="button" onclick="addPerson();" title="Speichert Name und Datum auf diesem Ger&auml;t"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Speichern</button></div>
+                        </div>
                      </div>
 
 
                      <!--
-                        TODAY
+                        CALCULATION
                      -->
-
                      <div id="calculation">
-                        <!--
-                        <h3>Berechnung <small><a href="" onclick="calculateCurrentAge();"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></a></small></h3>
-                     -->
                         <div class="container">
                            <div class="row">
                               <div class="col-xs-3">Name</div>
@@ -151,9 +152,8 @@
                            </div>
                            <div class="row">
                               <div class="col-xs-3">&nbsp;</div>
-                              <div class="col-xs-9"><button type="button" class="btn btn-default" onclick="removePersonFromLocalStorage();"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> L&ouml;schen</button></div>
+                              <div class="col-xs-9"><button type="button" class="btn btn-default" onclick="removePersonFromLocalStorage();" title="L&ouml;scht die lokal gespeicherten Personendaten"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> L&ouml;schen</button></div>
                            </div>
-
                            <!-- Spacer -->
                            <div class="row">
                               <div class="col-xs-3">&nbsp;</div>
@@ -171,24 +171,24 @@
                               <div class="col-xs-3">&nbsp;</div>
                            </div>
                            <div class="row">
-                              <div class="col-xs-3">Tage</div>
+                              <div class="col-xs-3">&nbsp;</div>
                               <div class="col-xs-9"><input type="text" name="curAgeInDays" id="curAgeInDays" placeholder="Age in Days" readonly></div>
                            </div>
                            <div class="row">
-                              <div class="col-xs-3">Wochen</div>
+                              <div class="col-xs-3">&nbsp;</div>
                               <div class="col-xs-9"><input type="text" name="curAgeInWeeks" id="curAgeInWeeks" placeholder="Age in Weeks" readonly></div>
                            </div>
                            <div class="row">
-                              <div class="col-xs-3">Monate</div>
+                              <div class="col-xs-3">&nbsp;</div>
                               <div class="col-xs-9"><input type="text" name="curAgeInMonth" id="curAgeInMonth" placeholder="Age in Month" readonly></div>
                            </div>
                            <div class="row">
-                              <div class="col-xs-3">Jahre</div>
+                              <div class="col-xs-3">&nbsp;</div>
                               <div class="col-xs-9"><input type="text" name="curAgeInYear" id="curAgeInYear" placeholder="Age in Year" readonly></div>
                            </div>
                            <div class="row">
                               <div class="col-xs-3">&nbsp;</div>
-                              <div class="col-xs-9"><button type="button" class="btn btn-default" onclick="calculateCurrentAge();"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Aktualisieren</button></div>
+                              <div class="col-xs-9"><button type="button" class="btn btn-default" onclick="calculateCurrentAge();" title="Aktualisiert die berechneten Werte"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Aktualisieren</button></div>
                            </div>
                         </div>
                      </div>
@@ -201,14 +201,15 @@
                      <div id="restrictions">
                         <h3>Info</h3>
                         <ul>
-                           <li>Der Name <b>Calcage</b> setzt sich zusammen aus <span class="badge">calc</span> und <span class="badge">age</span> und entspricht damit auch der Kernfunktion des Projektes - eine einfache Art anhand eines Geburtsdatums das Alter (in Tagen, Wochen, Monaten und Jahren) einer einzelnen Person zu errechnen.</li>
-                           <li>Calcage unterstützt aktuell nur 1 im Speicher des verwendeten Browsers hinterlegtes Geburtsdatum und Datum (LocalStorage)</li>
+                           <li>Der Name <b>CalcAge</b> setzt sich zusammen aus <span class="badge">calc</span> und <span class="badge">age</span> und entspricht damit auch der Kernfunktion des Projektes - eine einfache Art anhand eines Geburtsdatums das Alter (in Tagen, Wochen, Monaten und Jahren) einer einzelnen Person zu errechnen.</li>
+                           <li>CalcAge unterst&uuml;tzt aktuell nur 1 im Speicher des verwendeten Browsers hinterlegtes Geburtsdatum und Datum (LocalStorage)</li>
                            <li>Es werden keine Daten auf dem Server gespeichert - alles nur lokal - d.h. im Browser des Anwenders</li>
                            <li>Die Wochen-, Monats- und Jahresberechnung basiert auf dem errechnete Alter in Tagen.</li>
                            <li>Jeder Monat hat 30 Tage (Monatsberechnung)</li>
                            <li>Ein Jahr hat 365 Tage (Jahresberechnung)</li>
-                           <li>Bei Monats- und Jahresberechnung wird auf 1 Nachkomme-Stellen gerundet</li>
-                           <li>Bei Monats- und Jahresberechnung kann es daher zu Rundungs- und anderen Berechnungs-Ungenauigkeiten kommen</li>
+                           <li>Bei Wochen-, Monats- und Jahres-Berechnung wird auf 1 Nachkomme-Stellen gerundet</li>
+                           <li>Bei Wochen-, Monats- und Jahresberechnung kann es daher zu Rundungs- und anderen Berechnungs-Ungenauigkeiten kommen</li>
+                           <li>Wollen Sie sich bedanken? Dann klicken Sie auf die eingeblendete Google-Werbung.</li>
                         </ul>
                      </div>
 
@@ -237,8 +238,6 @@
             <script>
                (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
-
-
 
         </div>
         <!-- /#page-content-wrapper -->
