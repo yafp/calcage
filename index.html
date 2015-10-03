@@ -29,12 +29,25 @@
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/coreFunctions.js"></script>
 
+
+    <script>
+      //alert("setting background");
+       //$(this).parent().css("background-image", "url(/images/bg.png) no-repeat;");
+       $('body').css('background-image', 'url("images/bg.png")');
+       //$(this).parent().css("background", "url(/images/bg.png) no-repeat");
+       document.body.background = "images/bg.png";
+   </script>
+
+
     <script>
       $( document ).ready(function() {
          $("div#restrictions").hide();
          checkLocalStorageSupport();
       });
     </script>
+
+
+
 
 
 
@@ -121,6 +134,10 @@
                         <div class="row">
                            <div class="col-xs-3">Name</div>
                            <div class="col-xs-9"><input type="text" name="curName" id="curName" placeholder="Name" readonly></div>
+                        </div>
+                        <div class="row">
+                           <div class="col-xs-3">Sternzeichen</div>
+                           <div class="col-xs-9"><input type="text" name="zodiacSign" id="zodiacSign" placeholder="Sternzeichen" readonly></div>
                         </div>
                         <div class="row">
                            <div class="col-xs-3">&nbsp;</div>

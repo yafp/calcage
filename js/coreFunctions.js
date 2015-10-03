@@ -31,6 +31,7 @@ function loadCurrentPersonFromLocalStorage()
 {
    var name = localStorage.getItem('name');
    var bday = localStorage.getItem('bday');
+   var zodiacSign =  localStorage.getItem('zodiacSign');
 
    if(bday == null) // no person defined so far
    {
@@ -46,6 +47,7 @@ function loadCurrentPersonFromLocalStorage()
       // draw person details
       $("#curName").val(name);
       $("#curBday").val(bday);
+      $("#zodiacSign").val(zodiacSign);
 
       // now - as the person is loaded - calculate its age
       calculateCurrentAge();
@@ -66,9 +68,45 @@ function addPerson()
 
    if((name != "") && (bday != ""))
    {
+      // calculate star-sign
+      starBday = bday.replace(/-/g, '.');
+
+      // Split Birthday-String & reconstruct it to avoid issues with client-side date format
+      var starBdayArray = starBday.split(".");
+      if(starBdayArray[0].length == 2)
+      {
+         starBdayArray[1] = parseInt(starBdayArray[1], 10);
+         starBday = starBdayArray[1]+starBdayArray[0];
+      }
+      else
+      {
+         starBday = starBdayArray[1]+starBdayArray[2];
+      }
+
+      console.log(starBday);
+
+      if (starBday >= 321 && starBday <= 420) zodiacSign="Widder";
+      if (starBday >= 421 && starBday <= 520) zodiacSign="Stier";
+      if (starBday >= 521 && starBday <= 621) zodiacSign="Zwilling";
+      if (starBday >= 622 && starBday <= 722) zodiacSign="Krebs";
+      if (starBday >= 723 && starBday <= 823) zodiacSign="Löwe";
+      if (starBday >= 824 && starBday <= 923) zodiacSign="Jungfrau";
+      if (starBday >= 924 && starBday <= 1023) zodiacSign="Waage";
+      if (starBday >= 1024 && starBday <= 1122) zodiacSign="Skorpion";
+      if (starBday >= 1123 && starBday <= 1221) zodiacSign="Schütze";
+      if (starBday >= 1222 || starBday <= 120) zodiacSign="Steinbock";
+      if (starBday >= 121 && starBday <= 219) zodiacSign="Wassermann";
+      if (starBday >= 220 && starBday <= 320) zodiacSign="Fische";
+      console.log(zodiacSign);
+
       // with support for only 1 person
       localStorage.setItem('name',name);
       localStorage.setItem('bday',bday);
+      localStorage.setItem('zodiacSign',zodiacSign);
+
+
+      $(this).parent().css("background-image", "url(/images/bg.png) no-repeat;");
+
 
       toggleAddNewDiv();                     // hide add dialog
       loadCurrentPersonFromLocalStorage();   // load data from local storage
@@ -177,6 +215,7 @@ function removePersonFromLocalStorage()
    console.log("Deleting keys from LocalStorage");
    localStorage.removeItem('name');
    localStorage.removeItem('bday');
+   localStorage.removeItem('zodiacSign');
 
    resetUI();
 }
