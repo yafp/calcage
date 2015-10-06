@@ -29,16 +29,6 @@
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/coreFunctions.js"></script>
 
-
-    <script>
-      //alert("setting background");
-       //$(this).parent().css("background-image", "url(/images/bg.png) no-repeat;");
-       $('body').css('background-image', 'url("images/bg.png")');
-       //$(this).parent().css("background", "url(/images/bg.png) no-repeat");
-       document.body.background = "images/bg.png";
-   </script>
-
-
     <script>
       $( document ).ready(function() {
          $("div#restrictions").hide();
@@ -109,6 +99,9 @@
                   <h2>Altersermittlung in einfach</h2>
                   <noscript>Calcage basiert in gro&szlig;en Teilen auf Javascript - was dein Browser derzeit nicht unterst&uuml;tzt.</noscript>
                   <div id="warning" class="alert alert-danger" role="alert" style="display:none">Ihr Browser hat keinen LocalStorage-Support - weshalb Calcage nicht funktionieren wird.</div>
+
+                  <div id="zodiacSignImage">
+                  </div>
 
                   <!-- ADD NEW -->
                   <div id="addNew">

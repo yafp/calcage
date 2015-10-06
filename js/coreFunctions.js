@@ -49,6 +49,27 @@ function loadCurrentPersonFromLocalStorage()
       $("#curBday").val(bday);
       $("#zodiacSign").val(zodiacSign);
 
+      console.log(zodiacSign)
+
+      if (zodiacSign=="Widder") image="zs_widder.png";
+      if (zodiacSign=="Stier") image="zs_stier.png";
+      if (zodiacSign=="Zwilling") image="zs_zwilling.png";
+      if (zodiacSign=="Krebs") image="zs_krebs.png";
+      if (zodiacSign=="Löwe") image="zs_loewe.png";
+      if (zodiacSign=="Jungfrau") image="zs_jungfrau.png";
+      if (zodiacSign=="Waage") image="zs_waage.png";
+      if (zodiacSign=="Skorpion") image="zs_skorpion.png";
+      if (zodiacSign=="Schütze") image="zs_schuetze.png";
+      if (zodiacSign=="Steinbock") image="zs_steinbock.png";
+      if (zodiacSign=="Wassermann") image="zs_wassermannr.png";
+      if (zodiacSign=="Fische") image="zs_fische.png";
+
+      console.log(image);
+
+      imagePath="<img src='images/"+image+"' width='20'>";
+      console.log(imagePath);
+     $("#zodiacSignImage").html(imagePath);
+
       // now - as the person is loaded - calculate its age
       calculateCurrentAge();
    }
