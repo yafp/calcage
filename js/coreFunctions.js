@@ -200,9 +200,11 @@ function calculateCurrentAge()
    var start = new Date(date1[2], +date1[1]-1, date1[0]);
    var end = new Date(date2[2], +date2[1]-1, date2[0]);
 
+
    // Calculation of Age values (base = days)
    //
    var calcAgeInDays = (start.getTime() - end.getTime()) / (1000*60*60*24);      // Base-Value for further calculations
+   calcAgeInDays = calcAgeInDays.toFixed(0); // round - as sometimes we calc strange values
    var calcAgeInWeeks = (calcAgeInDays/7).toFixed(1);
    var calcAgeInMonth = (calcAgeInDays/30).toFixed(1);
    var calcAgeInYear = (calcAgeInDays/365).toFixed(1);
