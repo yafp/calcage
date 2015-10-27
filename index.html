@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Age Calculator">
+    <meta name="description" content="CalcAge is a webbased Age-Calculator. CalcAge ist ein Werkzeug zur Altersermittlung von Kleinkindern">
     <meta name="author" content="yafp">
 
-    <title>CalcAge</title>
+    <title>CalcAge - Altersberechnung einfach gemacht</title>
 
     <link rel="icon" type="image/png" href="images/favicon.ico">
 
@@ -28,19 +28,12 @@
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/coreFunctions.js"></script>
-
     <script>
       $( document ).ready(function() {
          $("div#restrictions").hide();
          checkLocalStorageSupport();
       });
     </script>
-
-
-
-
-
-
 
       <script>
          $(function() {
@@ -105,15 +98,15 @@
                   <div id="addNew">
                      <div class="row">
                         <div class="col-xs-3">Name</div>
-                        <div class="col-xs-9"><input type="text" name="name" id="name" placeholder="Name" required autocomplete="off"></div>
+                        <div class="col-xs-9"><input type="text" class="form-control" name="name" id="name" placeholder="Name" required autocomplete="off"></div>
                      </div>
                      <div class="row">
                         <div class="col-xs-3">Geburt</div>
-                        <div class="col-xs-9"><input type="date" name="bday" id="bday" placeholder="Geburtsdatum" required autocomplete="off"></div>
+                        <div class="col-xs-9"><input type="date" class="form-control" name="bday" id="bday" placeholder="Geburtsdatum" required autocomplete="off"></div>
                      </div>
                      <div class="row">
                         <div class="col-xs-3">&nbsp;</div>
-                        <div class="col-xs-9"><button type="button" onclick="addPerson();" title="Speichert Name und Datum auf diesem Ger&auml;t"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Speichern</button></div>
+                        <div class="col-xs-9"><button type="button" class="btn btn-default" onclick="addPerson();" title="Speichert Name und Datum auf diesem Ger&auml;t"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Speichern</button></div>
                      </div>
                   </div>
 
@@ -125,12 +118,12 @@
                      -->
                         <div class="row">
                            <div class="col-xs-3">Name</div>
-                           <div class="col-xs-9"><input type="text" name="curName" id="curName" placeholder="Name" readonly></div>
+                           <div class="col-xs-9"><input type="text" class="form-control" name="curName" id="curName" placeholder="Name" readonly></div>
                         </div>
                         <div class="row">
                            <div class="col-xs-3">&nbsp;</div>
-                           <div class="col-xs-6"><input type="text" name="zodiacSign" id="zodiacSign" placeholder="Sternzeichen" readonly></div>
-                           <div class="col-xs-3"  id="zodiacSignImage"></div>
+                           <div class="col-xs-6"><input type="text" class="form-control" name="zodiacSign" id="zodiacSign" placeholder="Sternzeichen" readonly></div>
+                           <div class="col-xs-3" id="zodiacSignImage"></div>
                         </div>
                         <div class="row">
                            <div class="col-xs-3">&nbsp;</div>
@@ -142,11 +135,11 @@
                         </div>
                         <div class="row">
                            <div class="col-xs-3">Geburt</div>
-                           <div class="col-xs-9"><input type="date" name="curBday" id="curBday" placeholder="Birthday" readonly></div>
+                           <div class="col-xs-9"><input type="date" class="form-control" name="curBday" id="curBday" placeholder="Birthday" readonly></div>
                         </div>
                         <div class="row">
                            <div class="col-xs-3">Heute</div>
-                           <div class="col-xs-9"><input type="text" name="curDate" id="curDate" placeholder="Today" readonly></div>
+                           <div class="col-xs-9"><input type="text" class="form-control" name="curDate" id="curDate" placeholder="Today" readonly></div>
                         </div>
                         <!-- Spacer -->
                         <div class="row">
@@ -154,19 +147,19 @@
                         </div>
                         <div class="row">
                            <div class="col-xs-3">&nbsp;</div>
-                           <div class="col-xs-9"><input type="text" name="curAgeInDays" id="curAgeInDays" placeholder="Age in Days" readonly></div>
+                           <div class="col-xs-9"><input type="text" class="form-control" name="curAgeInDays" id="curAgeInDays" placeholder="Age in Days" readonly></div>
                         </div>
                         <div class="row">
                            <div class="col-xs-3">&nbsp;</div>
-                           <div class="col-xs-9"><input type="text" name="curAgeInWeeks" id="curAgeInWeeks" placeholder="Age in Weeks" readonly></div>
+                           <div class="col-xs-9"><input type="text" class="form-control" name="curAgeInWeeks" id="curAgeInWeeks" placeholder="Age in Weeks" readonly></div>
                         </div>
                         <div class="row">
                            <div class="col-xs-3">&nbsp;</div>
-                           <div class="col-xs-9"><input type="text" name="curAgeInMonth" id="curAgeInMonth" placeholder="Age in Month" readonly></div>
+                           <div class="col-xs-9"><input type="text" class="form-control" name="curAgeInMonth" id="curAgeInMonth" placeholder="Age in Month" readonly></div>
                         </div>
                         <div class="row">
                            <div class="col-xs-3">&nbsp;</div>
-                           <div class="col-xs-9"><input type="text" name="curAgeInYear" id="curAgeInYear" placeholder="Age in Year" readonly></div>
+                           <div class="col-xs-9"><input type="text" class="form-control" name="curAgeInYear" id="curAgeInYear" placeholder="Age in Year" readonly></div>
                         </div>
                         <div class="row">
                            <div class="col-xs-3">&nbsp;</div>
@@ -193,8 +186,6 @@
                         </ul>
                   </div>
 
-
-
                   <br>
                   <div id="footer">
                      <center><small><a href="https://github.com/yafp/calcage">CalcAge</a> wird entwickelt von <a href="http://yafp.de">yafp</a></small></center>
@@ -203,7 +194,6 @@
                </div>
             </div>
          </div>
-
 
          <!-- Google Ads -->
          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
