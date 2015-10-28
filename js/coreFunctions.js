@@ -279,11 +279,9 @@ function toggleAddNewDiv()
    }
    else
    {
-      $("div#addNew").hide();
+      //$("div#addNew").hide();
    }
 }
-
-
 
 
 function toggleCalculationDiv()
@@ -297,7 +295,7 @@ function toggleCalculationDiv()
    }
 else
    {
-      $("div#calculation").hide();
+      //$("div#calculation").hide();
    }
 }
 
@@ -313,6 +311,6 @@ function toggleRestrictionsDiv()
    }
    else
    {
-      $("div#restrictions").hide();
+      //$("div#restrictions").hide();
    }
 }
